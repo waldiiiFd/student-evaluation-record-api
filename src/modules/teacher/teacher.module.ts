@@ -3,8 +3,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Teacher } from './entities/teacher.entity';
 import { TeacherService } from './teacher.service';
 import { TeacherController } from './teacher.controller';
-import { Student } from 'src/student/entities/student.entity';
-import { Subject } from 'src/subject/entities/subject.entity';
+import { Student } from 'src/modules/student/entities/student.entity';
+import { Subject } from 'src/modules/subject/entities/subject.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Teacher, Student, Subject])],

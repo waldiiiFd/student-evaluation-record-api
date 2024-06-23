@@ -1,7 +1,7 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { CreateEvaluationDto } from './create-evaluation.dto';
 import { IsDate, IsNotEmpty, IsNumber, IsObject, IsString } from 'class-validator';
-import { Subject } from 'src/subject/entities/subject.entity';
+import { Subject } from 'src/modules/subject/entities/subject.entity';
 
 export class UpdateEvaluationDto extends PartialType(CreateEvaluationDto) {
     @IsDate()

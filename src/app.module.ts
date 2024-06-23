@@ -1,11 +1,11 @@
 import { Module,ValidationPipe } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { StudentModule } from './student/student.module';
-import { SubjectModule } from './subject/subject.module';
-import { EvaluationModule } from './evaluation/evaluation.module';
-import { TeacherModule } from './teacher/teacher.module';
-import { UserModule } from './user/user.module';
-import { StudentSubjectModule } from './student_subject/student_subject.module';
+import { StudentModule } from './modules/student/student.module';
+import { SubjectModule } from './modules/subject/subject.module';
+import { EvaluationModule } from './modules/evaluation/evaluation.module';
+import { TeacherModule } from './modules/teacher/teacher.module';
+import { UserModule } from './modules/user/user.module';
+import { StudentSubjectModule } from './modules/student_subject/student_subject.module';
 
 
 @Module({

@@ -1,6 +1,6 @@
 
 import { IsDate, IsNotEmpty, IsNumber, IsObject, IsString } from "class-validator";
-import { Subject } from "src/subject/entities/subject.entity";
+import { Subject } from "src/modules/subject/entities/subject.entity";
 
 export class CreateEvaluationDto {
     @IsDate()

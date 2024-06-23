@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToMany, JoinTable } from 'typeorm';
-import { Teacher } from 'src/teacher/entities/teacher.entity';
-import { Evaluation } from 'src/evaluation/entities/evaluation.entity';
-import { Student } from 'src/student/entities/student.entity';
+import { Teacher } from 'src/modules/teacher/entities/teacher.entity';
+import { Evaluation } from 'src/modules/evaluation/entities/evaluation.entity';
+import { Student } from 'src/modules/student/entities/student.entity';
 
 @Entity()
 export class Subject {
