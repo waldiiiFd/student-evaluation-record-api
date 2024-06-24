@@ -20,8 +20,8 @@ export class Student {
     @Column()
     group: number;
 
-    @Column()
-    average: number;
+    /* @Column()
+    average: number; */
     
     @ManyToMany(() => Teacher, teacher => teacher.students)
     @JoinTable()

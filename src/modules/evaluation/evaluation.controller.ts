@@ -18,17 +18,17 @@ export class EvaluationController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: number) {
     return this.evaluationService.findOne(+id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateEvaluationDto: UpdateEvaluationDto) {
+  update(@Param('id') id:number, @Body() updateEvaluationDto: UpdateEvaluationDto) {
     return this.evaluationService.update(+id, updateEvaluationDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: number) {
     return this.evaluationService.remove(+id);
   }
 }

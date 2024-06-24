@@ -5,7 +5,6 @@ import { SubjectModule } from './modules/subject/subject.module';
 import { EvaluationModule } from './modules/evaluation/evaluation.module';
 import { TeacherModule } from './modules/teacher/teacher.module';
 import { UserModule } from './modules/user/user.module';
-import { StudentSubjectModule } from './modules/student_subject/student_subject.module';
 
 
 @Module({
@@ -20,7 +19,7 @@ import { StudentSubjectModule } from './modules/student_subject/student_subject.
       synchronize: true,
       autoLoadEntities:true,
     }),
-    StudentModule, SubjectModule, EvaluationModule, TeacherModule, UserModule, StudentSubjectModule,],
+    StudentModule, SubjectModule, EvaluationModule, TeacherModule, UserModule],
   controllers: [],
   providers: [],
 })

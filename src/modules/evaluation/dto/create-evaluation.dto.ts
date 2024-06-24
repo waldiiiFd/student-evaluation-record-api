@@ -9,7 +9,7 @@ export class CreateEvaluationDto {
 
     @IsString()
     @IsNotEmpty()
-    evaluationType: string;//Parcial o Evaluacion sistematica (((Enum)))
+    evaluationType: string;
 
     @IsNumber()
     @IsNotEmpty()
