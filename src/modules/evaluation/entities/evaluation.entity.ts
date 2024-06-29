@@ -1,22 +1,24 @@
 import { Subject } from 'src/modules/subject/entities/subject.entity';
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Student } from 'src/modules/student/entities/student.entity';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne} from 'typeorm';
+
 @Entity()
 export class Evaluation {
-    @PrimaryGeneratedColumn()
-    id: number;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column()
-    evaluationDate: Date;
+  @Column()
+  evaluationDate: Date;
 
-    @Column()
-    evaluationType: string;//Parcial o Evaluacion sistematica (((Enum)))
+  @Column()
+  evaluationType: string;
 
-    @Column()
-    evaluationGrade:number;
+  @Column({ nullable: true })
+  evaluationGrade: number;
 
-    @ManyToOne(() => Subject, subject => subject.evaluations )
-    subject: Subject;
+  @ManyToOne(() => Subject, subject => subject.evaluations)
+  subject: Subject;
 
-   
-    
+  @ManyToOne(() => Student, student => student.evaluations)
+  student: Student;
 }
