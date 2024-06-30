@@ -18,17 +18,14 @@ export class Student {
   @Column()
   name: string;
 
-  @Column()
-  email: string;
+  @Column({unique:true})
+  identification_number: string;
 
   @Column()
   academicYear: number;
 
   @Column()
   group: number;
-
-  /* @Column()
-    average: number; */
 
   @ManyToMany(() => Teacher, (teacher) => teacher.students)
   @JoinTable()

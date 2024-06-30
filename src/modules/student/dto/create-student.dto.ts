@@ -1,11 +1,11 @@
-import { IsString, IsEmail, IsNumber, IsOptional, IsArray } from 'class-validator';
+import { IsString, IsNumber, IsOptional, IsArray } from 'class-validator';
 
 export class CreateStudentDto {
   @IsString()
   name: string;
 
-  @IsEmail()
-  email: string;
+  @IsString()
+  identification_number: string;
 
   @IsNumber()
   academicYear: number;
@@ -20,4 +20,8 @@ export class CreateStudentDto {
   @IsArray()
   @IsOptional()
   subjects?: number[];
+
+  @IsArray()
+  @IsOptional()
+  evaluations?: number[];
 }

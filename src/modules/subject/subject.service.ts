@@ -37,6 +37,7 @@ export class SubjectService {
 
     return this.subjectRepository.save(subject);
   }
+  
   findAll(): Promise<Subject[]> {
     return this.subjectRepository.find({ relations: ['teachers', 'evaluations', 'students'] });
   }
