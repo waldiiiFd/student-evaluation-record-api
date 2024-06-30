@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateSubjectDto } from './dto/create-subject.dto';
 import { UpdateSubjectDto } from './dto/update-subject.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -37,7 +37,7 @@ export class SubjectService {
 
     return this.subjectRepository.save(subject);
   }
-  
+
   findAll(): Promise<Subject[]> {
     return this.subjectRepository.find({ relations: ['teachers', 'evaluations', 'students'] });
   }
@@ -73,9 +73,16 @@ export class SubjectService {
   }
 
   async remove(id: number): Promise<void> {
-    const result = await this.subjectRepository.delete(id);
-    if (result.affected === 0) {
-      throw new NotFoundException(`Subject with ID ${id} not found`);
+    try {
+      const result = await this.subjectRepository.delete(id);
+      if (result.affected === 0) {
+        throw new NotFoundException(`Subject with ID ${id} not found`);
+      }
+    } catch (error) {
+      if (error.code === '23503') {
+        throw new BadRequestException(`Cannot delete subject with ID ${id} because it is referenced by other records`);
+      }
+      throw error;
     }
   }
 }
