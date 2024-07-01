@@ -10,9 +10,6 @@ export class Teacher {
     @Column()
     name: string;
 
-    @Column({unique:true})
-    identification_number: string;
-
     @ManyToOne(() => Subject, subject => subject.teachers)
     subject: Subject;
 

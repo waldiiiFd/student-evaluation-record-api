@@ -1,16 +1,12 @@
-import { IsString, IsOptional, IsArray, IsObject, IsNotEmpty } from 'class-validator';
-import { Subject } from 'src/modules/subject/entities/subject.entity';
+import { IsString, IsOptional, IsNumber, IsArray } from 'class-validator';
 
 export class CreateTeacherDto {
   @IsString()
   name: string;
 
-  @IsString()
-  identification_number: string;
-
-  @IsObject()
-  @IsNotEmpty()
-  subject: Partial<Subject>;
+  @IsNumber()
+  @IsOptional()
+  subject?: number;
 
   @IsArray()
   @IsOptional()
