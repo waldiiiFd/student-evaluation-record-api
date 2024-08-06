@@ -21,6 +21,5 @@ export class Teacher {
   students: Student[];
 
   @OneToOne(() => User, user => user.teacher) // Relación OneToOne con User
-  @JoinColumn() // JoinColumn es necesario en uno de los lados de la relación OneToOne
   user: User;
 }
