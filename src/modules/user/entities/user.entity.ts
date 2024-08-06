@@ -1,15 +1,22 @@
-import { Column, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Teacher } from 'src/modules/teacher/entities/teacher.entity'; // Asegúrate de que la ruta sea correcta
+import { Role } from 'src/modules/common/enums/role.enum';
 
+@Entity()
 export class User {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn("increment")
   id: number;
 
-  @Column({unique:true})
+  @Column({ unique: true, nullable: false })
   email: string;
 
-  @Column()
+  @Column({ nullable: false })
   password: string;
 
   @Column()
-  role: number;
+  role: Role;
+
+  @OneToOne(() => Teacher, teacher => teacher.user) // Relación OneToOne con Teacher
+  @JoinColumn() // JoinColumn es necesario en uno de los lados de la relación OneToOne
+  teacher: Teacher;
 }

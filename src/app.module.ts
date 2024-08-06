@@ -5,6 +5,8 @@ import { SubjectModule } from './modules/subject/subject.module';
 import { EvaluationModule } from './modules/evaluation/evaluation.module';
 import { TeacherModule } from './modules/teacher/teacher.module';
 import { UserModule } from './modules/user/user.module';
+import { AuthController } from './modules/auth/auth.controller';
+import { AuthModule } from './modules/auth/auth.module';
 
 
 @Module({
@@ -19,8 +21,8 @@ import { UserModule } from './modules/user/user.module';
       synchronize: true,
       autoLoadEntities:true,
     }),
-    StudentModule, SubjectModule, EvaluationModule, TeacherModule, UserModule],
-  controllers: [],
+    StudentModule, SubjectModule, EvaluationModule, TeacherModule, UserModule,AuthModule],
+  controllers: [AuthController],
   providers: [],
 })
 export class AppModule {}
