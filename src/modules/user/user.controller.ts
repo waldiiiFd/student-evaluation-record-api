@@ -19,7 +19,7 @@ import { Role } from "../common/enums/role.enum";
 import { Roles } from "../common/decorators/roles.decoradors";
 import { Auth } from "../common/decorators/auth.decorador";
 
-@Auth([Role.ADMIN])
+//@Auth([Role.ADMIN])
 @UsePipes(new ValidationPipe())
 @Controller("user")
 export class UserController {

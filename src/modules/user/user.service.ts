@@ -3,18 +3,20 @@ import {
   Injectable,
   InternalServerErrorException,
   NotFoundException,
-} from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
-import { CreateUserDto, UpdateUserDto} from "./dto";
-import { Role } from "../common/enums/role.enum";
-import { User } from "./entities";
+} from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { CreateUserDto, UpdateUserDto } from './dto';
+import { Role } from '../common/enums/role.enum';
+import { User } from './entities';
+import { Teacher } from 'src/modules/teacher/entities/teacher.entity';
 //import { MailService } from "../mail/mail.service";
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectRepository(User) private readonly userRepository: Repository<User>,
+    @InjectRepository(Teacher) private readonly teacherRepository:Repository<Teacher>
     //private mailService:MailService
   ) {}
 
@@ -24,29 +26,40 @@ export class UserService {
     if (!roles.includes(createUserDto.role)) {
       throw new BadRequestException(`Rol '${createUserDto.role}' is not valid`);
     }
-  
+
     // Verificar que el email no esté en uso
     const foundUser = await this.userRepository.findOne({
       where: { email: createUserDto.email },
     });
-  
+
     if (foundUser) {
       throw new BadRequestException(
-        `User with email '${createUserDto.email}' already exists`
+        `User with email '${createUserDto.email}' already exists`,
       );
     }
-  
+
     // Crear el nuevo usuario
-    const newUser = new User(); // Asegúrate de que la clase se llame User con la primera letra mayúscula
-    
+    const newUser = new User();
+
     newUser.email = createUserDto.email;
-    newUser.password = createUserDto.password; // No olvides encriptar la contraseña
-    newUser.role = createUserDto.role; // Asignar el rol directamente del DTO
-  
+    newUser.password = createUserDto.password;
+    newUser.role = createUserDto.role;
+    
+    // Verificar si el teacherId existe y asignar el objeto teacher
+    if (createUserDto.teacherId) {
+      const teacher = await this.teacherRepository.findOneBy({ id: createUserDto.teacherId });
+
+      if (!teacher) {
+        throw new NotFoundException(`Teacher with ID ${createUserDto.teacherId} not found`);
+      }
+
+      newUser.teacher = teacher;
+    }
+
     const createdUser = await this.userRepository.save(newUser);
-  
+
     // Enviar correo de bienvenida si el rol es estudiante
-   /*  if (newUser.role === Role.STUDENT) {
+    /*  if (newUser.role === Role.STUDENT) {
       try {
         await this.mailService.sendMail(newUser.email, newUser.name);
       } catch (error) {
@@ -54,14 +67,14 @@ export class UserService {
         throw new InternalServerErrorException('Failed to send welcome email', error);
       }
     } */
-  
+
     return createdUser;
   }
 
   
 
   async get_users(): Promise<User[]> {
-    return await this.userRepository.find({ relations: ["teacher"] });
+    return await this.userRepository.find({ relations: ['teacher'] });
   }
 
   async get_user(id: number): Promise<User> {
@@ -77,12 +90,11 @@ export class UserService {
   async findOneByEmail(email: string) {
     return await this.userRepository.findOne({
       where: { email },
-      relations: ["role"],
     });
   }
 
   async delete_user(email: string): Promise<void> {
-    const userToDelete = await this.findOneByEmail(email)
+    const userToDelete = await this.findOneByEmail(email);
 
     if (!userToDelete) {
       throw new NotFoundException(`User with email ${email} not found`);
@@ -91,7 +103,7 @@ export class UserService {
     await this.userRepository.remove(userToDelete);
   }
 
-  async update_user(email:string,userUpdate: UpdateUserDto): Promise<User> {
+  async update_user(email: string, userUpdate: UpdateUserDto): Promise<User> {
     const userToUpdate = await this.findOneByEmail(email);
 
     if (!userToUpdate) {
@@ -106,7 +118,7 @@ export class UserService {
     return updatedUser;
   }
 
-/*   async update_user_role(
+  /*   async update_user_role(
     id: number,
     userRoleUpdate: UpdateUserRoleDto
   ): Promise<user> {
@@ -130,4 +142,10 @@ export class UserService {
 
     return updatedUser;
   } */
+
+  /* updateUser(id: string, name: string, email: string, password: string) {
+      // Lógica para actualizar usuario
+    } */
+
+
 }

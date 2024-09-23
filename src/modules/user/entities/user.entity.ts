@@ -16,7 +16,7 @@ export class User {
   @Column()
   role: Role;
 
-  @OneToOne(() => Teacher, teacher => teacher.user) // Relación OneToOne con Teacher
-  @JoinColumn() // JoinColumn es necesario en uno de los lados de la relación OneToOne
+  @OneToOne(() => Teacher, teacher => teacher.user)
+  @JoinColumn() 
   teacher: Teacher;
 }

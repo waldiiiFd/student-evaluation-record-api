@@ -20,6 +20,6 @@ export class Teacher {
   @ManyToMany(() => Student, student => student.teachers)
   students: Student[];
 
-  @OneToOne(() => User, user => user.teacher) // Relación OneToOne con User
+  @OneToOne(() => User, user => user.teacher)
   user: User;
 }

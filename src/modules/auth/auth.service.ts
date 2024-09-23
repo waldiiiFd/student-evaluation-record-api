@@ -21,7 +21,7 @@ export class AuthService {
   ) {}
 
   async register(registerUserDto: RegisterDto) {
-    const { name, email, password, role } = registerUserDto;
+    const {email, password, role,teacherId } = registerUserDto;
 
     const hashedPassword = await bcryptjs.hash(password, 10);
 
@@ -29,11 +29,12 @@ export class AuthService {
       email,
       password: hashedPassword,
       role,
+      teacherId,
+
     });
 
     return {
-      name,
-      email,
+      email
     };
   }
 
