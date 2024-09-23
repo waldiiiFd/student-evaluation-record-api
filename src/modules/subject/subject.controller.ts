@@ -2,6 +2,8 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { SubjectService } from './subject.service';
 import { CreateSubjectDto } from './dto/create-subject.dto';
 import { UpdateSubjectDto } from './dto/update-subject.dto';
+import { Auth } from '../common/decorators/auth.decorador';
+import { Role } from '../common/enums/role.enum';
 
 @Controller('subject')
 export class SubjectController {
@@ -11,7 +13,7 @@ export class SubjectController {
   create(@Body() createSubjectDto: CreateSubjectDto) {
     return this.subjectService.create(createSubjectDto);
   }
-
+  
   @Get()
   findAll() {
     return this.subjectService.findAll();

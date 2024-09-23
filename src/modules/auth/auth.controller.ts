@@ -26,11 +26,14 @@ import {
   export class AuthController {
     constructor(private readonly authService: AuthService) {}
   
+    @Auth([Role.admin])
     @Post("register")
+    
     register(@Body() registerDto: RegisterDto) {
       return this.authService.register(registerDto);
     }
   
+    @Auth([Role.admin])
     @Patch(":email")
     updateUserCredentials(
       @Param("email") email: string,
@@ -48,7 +51,7 @@ import {
       return this.authService.login(loginDto);
     }
   
-    @Auth([Role.ADMIN]) // Para cualquier endpoint hace falta copiar este decoreador para garantizar la autorización
+     // Para cualquier endpoint hace falta copiar este decoreador para garantizar la autorización
     @Get("profile")
     get_profile(@ActiveUser() user: UserInterface) {
       return this.authService.get_profile({email: user.email, role: user.role,});

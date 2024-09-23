@@ -19,13 +19,14 @@ import { Role } from "../common/enums/role.enum";
 import { Roles } from "../common/decorators/roles.decoradors";
 import { Auth } from "../common/decorators/auth.decorador";
 
-//@Auth([Role.ADMIN])
+
 @UsePipes(new ValidationPipe())
 @Controller("user")
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post()
+  @Auth([Role.admin])
   create_user(@Body() user: CreateUserDto) {
     return this.userService.create_user(user);
   }
